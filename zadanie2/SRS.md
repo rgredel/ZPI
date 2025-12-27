@@ -128,6 +128,26 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **When:** Wchodzę w zakładkę "Katalog".
 *   **Then:** Widzę listę kafelków z nazwami ścieżek, poziomem trudności i czasem trwania.
 
+### 4.2. Przypisywanie Ścieżek (US-2)
+
+**Opis:** Manager może przypisać ścieżkę obligatoryjną swojemu podwładnemu.
+**Historyjka Użytkownika:**
+*   Jako Manager,
+*   chcę przypisać konkretną ścieżkę rozwoju mojemu podwładnemu,
+*   aby ukierunkować jego rozwój na potrzeby projektu.
+
+**Cel Biznesowy:** Zamykanie luk kompetencyjnych w zespole.
+**Warunki Wstępne:** Manager jest zalogowany i ma podpiętych członków zespołu.
+**Warunki Końcowe:** Ścieżka pojawia się w "Moich Ścieżkach" pracownika z oznaczeniem "Wymagana".
+
+**Kryteria Akceptacji:**
+
+**Scenariusz Główny: Przypisanie ścieżki**
+*   **Given:** Jestem Managerem na profilu pracownika.
+*   **When:** Kliknę "Przypisz Ścieżkę" i wybiorę z listy "Java Advanced".
+*   **Then:** Pracownik otrzymuje powiadomienie e-mail.
+*   **And:** Ścieżka jest widoczna na koncie pracownika.
+
 ### [Placeholder: Następna Funkcjonalność]
 
 ### 4.1. Priorytetyzacja Wymagań
