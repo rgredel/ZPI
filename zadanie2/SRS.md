@@ -41,7 +41,14 @@ Dokument składa się z 7 rozdziałów. Po wstępie (Rozdział 1), Rozdział 2 p
 ## 2. Opis Ogólny
 
 ### 2.1. Główne Funkcje Produktu
-[Lista lub diagram głównych modułów systemu.]
+System Intelligent LMS składa się z następujących głównych modułów funkcjonalnych:
+
+*   **Zarządzanie Ścieżkami Rozwoju (Learning Paths):** Tworzenie i edycja ścieżek edukacyjnych.
+*   **Katalog Kursów:** Przeglądanie i wyszukiwanie dostępnych szkoleń.
+*   **Moduł Odtwarzania (Player):** Odtwarzanie wideo, w tym wideo interaktywnego (Active Recall).
+*   **Weryfikacja Wiedzy:** Moduł quizów i testów sprawdzających.
+*   **Inteligentny Asystent Powtórek:** System Spaced Repetition sugerujący powtórki.
+*   **Raportowanie i Analityka:** Generowanie raportów dla managerów i HR.
 
 ### 2.2. Klasy Użytkowników
 [Opis ról i person.]
