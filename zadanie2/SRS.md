@@ -189,6 +189,26 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **Then:** Moduł otrzymuje status "Zaliczony".
 *   **And:** System gratuluje sukcesu i odblokowuje kolejny moduł (jeśli istnieje).
 
+### 4.5. Raportowanie Postępów (US-5)
+
+**Opis:** Generowanie raportów o postępach pracowników i zespołów dla działu HR.
+**Historyjka Użytkownika:**
+*   Jako HR Manager,
+*   chcę generować raporty postępów zespołów,
+*   aby monitorować realizację celu 60% przeszkolonej kadry.
+
+**Cel Biznesowy:** Monitoring KPI projektu.
+**Warunki Wstępne:** W systemie są zarejestrowane postępy użytkowników.
+**Warunki Końcowe:** Manager otrzymuje plik CSV/PDF z raportem.
+
+**Kryteria Akceptacji:**
+
+**Scenariusz Główny: Generowanie raportu**
+*   **Given:** Jestem zalogowany jako HR Manager.
+*   **When:** Wybieram zakres dat i zespół, a następnie klikam "Generuj Raport".
+*   **Then:** System pobiera dane o ukończonych kursach.
+*   **And:** Pobieram wygenerowany plik z raportem.
+
 ### [Placeholder: Następna Funkcjonalność]
 
 ### 4.1. Priorytetyzacja Wymagań
