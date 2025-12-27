@@ -65,13 +65,13 @@ System Intelligent LMS składa się z następujących głównych modułów funkc
 
 ### 2.3. Ograniczenia Projektowe i Implementacyjne
 **Technologiczne:**
-*   [Ograniczenie 1]
+*   **Budżet Infrastruktury:** Miesięczny koszt chmury max 2000 PLN (MVP). Wymusza optymalizację przechowywania wideo.
 
 **Organizacyjne:**
-*   [Ograniczenie 1]
+*   **Zespół:** Dostępność materiałów szkoleniowych zależy od działu HR i Tech Leadów.
 
 **Prawne i Środowiskowe:**
-*   [Ograniczenie 1]
+*   **RODO (GDPR):** System przetwarza dane osobowe i wyniki pracowników. Wymagane ścisłe role dostępu (ACL), szyfrowanie i logi audytowe.
 
 ### 2.4. Założenia Projektowe
 [Lista założeń.]
