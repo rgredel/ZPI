@@ -148,6 +148,27 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **Then:** Pracownik otrzymuje powiadomienie e-mail.
 *   **And:** Ścieżka jest widoczna na koncie pracownika.
 
+### 4.3. Odtwarzanie i Interakcja z Wideo (US-3, US-8)
+
+**Opis:** Odtwarzacz wideo z obsługą Active Recall (pytania w trakcie oglądania).
+**Historyjka Użytkownika:**
+*   Jako pracownik,
+*   chcę odpowiadać na pytania w trakcie oglądania wideo,
+*   aby na bieżąco weryfikować zrozumienie materiału.
+
+**Cel Biznesowy:** Zwiększenie retencji wiedzy poprzez interakcję.
+**Warunki Wstępne:** Użytkownik uruchomił materiał wideo.
+**Warunki Końcowe:** postęp wideo zostaje zapisany.
+
+**Kryteria Akceptacji:**
+
+**Scenariusz Główny: Active Recall**
+*   **Given:** Oglądam wideo szkoleniowe.
+*   **When:** Wideo dociera do znacznika czasu z przypisanym pytaniem.
+*   **Then:** Odtwarzanie jest pauzowane automatycznie.
+*   **And:** Na ekranie pojawia się pytanie wielokrotnego wyboru.
+*   **And:** Nie mogę wznowić odtwarzania bez udzielenia odpowiedzi.
+
 ### [Placeholder: Następna Funkcjonalność]
 
 ### 4.1. Priorytetyzacja Wymagań
