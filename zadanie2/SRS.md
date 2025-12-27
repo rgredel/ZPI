@@ -51,7 +51,17 @@ System Intelligent LMS składa się z następujących głównych modułów funkc
 *   **Raportowanie i Analityka:** Generowanie raportów dla managerów i HR.
 
 ### 2.2. Klasy Użytkowników
-[Opis ról i person.]
+
+**Rola:** HR Manager / Administrator
+*   **Opis:** Zarządza budżetem, użytkownikami i ścieżkami szkoleniowymi. Monitoruje postępy.
+*   **Persona:** **Anna (35 lat)**. Cel: Chce efektywnie zarządzać budżetem szkoleniowym. Frustracja: Brak weryfikacji efektów szkoleń.
+
+**Rola:** Pracownik / Developer
+*   **Opis:** Korzysta z systemu do nauki, realizuje przypisane ścieżki.
+*   **Persona:** **Piotr (29 lat)**. Senior Developer. Cel: Chce pogłębiać wiedzę techniczną bez tracenia czasu na szukanie materiałów. Frustracja: Niespójne źródła wiedzy.
+
+**Rola:** Manager Zespołu
+*   **Opis:** Przypisuje ścieżki podwładnym i monitoruje ich rozwój w kontekście potrzeb projektowych.
 
 ### 2.3. Ograniczenia Projektowe i Implementacyjne
 **Technologiczne:**
