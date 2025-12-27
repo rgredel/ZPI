@@ -229,40 +229,27 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **Then:** System prezentuje mi 5 szybkich pytań z materiału przerobionego w przeszłości.
 *   **And:** Jeśli odpowiem błędnie, pytanie wróci do mnie szybciej (np. jutro).
 
-### 4.1. Priorytetyzacja Wymagań
-[Tabela priorytetyzacji]
+### 4.7. Priorytetyzacja Wymagań
+
+| ID | Funkcjonalność | Priorytet (MoSCoW) |
+| :--- | :--- | :--- |
+| US-1 | Przeglądanie Katalogu | **Must Have** |
+| US-2 | Przypisywanie Ścieżek | **Must Have** |
+| US-3 | Odtwarzacz Wideo | **Must Have** |
+| US-4 | Weryfikacja Wiedzy | **Must Have** |
+| US-5 | Raportowanie Postępów | **Should Have** |
+| US-7 | Asystent Powtórek | **Should Have** |
 
 ---
 
 ## 5. Atrybuty Jakościowe
 
-### 5.1. Jakość Wykonania
+...
 
-**Wydajność (Performance):**
-*   **WNF-WYD-01:** Czas startu wideo (Time to First Frame) **< 2 sekundy** przy łączu 10 Mbps.
-*   **WNF-WYD-02:** Czas odpowiedzi API na zapytanie o listę kursów < 500 ms.
-
-**Dostępność (Availability):**
-*   **WNF-NIEZ-01:** Dostępność systemu na poziomie **99.5%** w skali miesiąca (~3.5h downtime).
-*   **WNF-NIEZ-02:** Okna serwisowe tylko w godzinach 2:00-4:00 w nocy.
-
-**Bezpieczeństwo (Security):**
-*   **WNF-BEZ-01:** Wymuszenie haseł o sile min. 50 bitów entropii.
-*   **WNF-BEZ-02:** Dane osobowe szyfrowane algorytmem AES-256 (At-Rest).
-
-**Skalowalność (Scalability):**
-*   **WNF-SKAL-01:** Możliwość obsłużenia 1000 jednoczesnych użytkowników bez spadku wydajności (Auto-scaling).
-
-### 5.2. Jakość Projektu
-
-**Modyfikowalność (Modifiability):**
-*   **WNF-ROZ-01:** Czas dodania nowego typu zadania (quiz plugin) < 16 roboczogodzin.
-
-**Przenośność (Portability):**
-*   **WNF-PRZEN-01:** System zgodny z kontenerami Docker (Kubernetes ready).
-
-### 5.1. Priorytetyzacja Atrybutów Jakościowych
-[Opis priorytetów]
+### 5.3. Priorytetyzacja Atrybutów Jakościowych
+1.  **Krytyczne:** Bezpieczeństwo danych (RODO) i Wydajność (Odtwarzanie wideo).
+2.  **Wysokie:** Dostępność systemu.
+3.  **Średnie:** Modyfikowalność i Przenośność.
 
 ---
 
