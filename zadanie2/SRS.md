@@ -268,15 +268,20 @@ System będzie komunikował się z zewnętrznymi systemami:
 
 ## 6. Odkrywanie i Analiza Wymagań
 
-### 6.1. Analiza Porównawcza
+### 6.1. Analiza Porównawcza (Benchmarking)
+
 **Konkurencja:**
-*   [Konkurent 1]
+*   **Udemy for Business:** Popularna platforma z kursami wideo.
+*   **Pluralsight:** Platforma skoncentrowana na umiejętnościach technicznych.
 
 **Kryteria Oceny:**
-[Tabela]
+1.  **Materiały Wewnętrzne:** Czy można hostować własne wideo?
+2.  **Spaced Repetition:** Czy system wspiera inteligentne powtórki?
+3.  **Koszt:** Model rozliczeń.
 
-**Wnioski:**
-[Synteza wyników]
+**Synteza Wyników:**
+*   **Udemy/Pluralsight:** Oferują świetne materiały ogólne, ale brakuje im wsparcia dla specyficznych procesów firmowych i hostingu tajnych materiałów wewnętrznych. Żadna z nich nie posiada wbudowanego modułu Active Recall/Spaced Repetition w standardzie.
+*   **Intelligent LMS:** Wypełnia niszę poprzez połączenie własnych treści (Internal Knowledge) z nowoczesnymi metodami nauki (SR/Active Recall), co jest kluczowe dla ROI.
 
 ---
 
