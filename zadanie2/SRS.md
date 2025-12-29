@@ -342,30 +342,34 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **Diagram Przypadków Użycia (Use Case):**
 
 ```mermaid
-useCaseDiagram
-    actor "Employee" as emp
-    actor "Team Manager" as mgr
-    actor "HR Manager" as hr
+flowchart LR
+    %% Actors
+    emp("👤 Employee")
+    mgr("👤 Team Manager")
+    hr("👤 HR Manager")
 
-    package "Intelligent LMS" {
-        usecase "Browse Catalog (US-1)" as UC1
-        usecase "Play Video (US-3)" as UC2
-        usecase "Active Recall Interaction (US-8)" as UC3
-        usecase "Take Quiz (US-4)" as UC4
-        usecase "Smart Repetitions (US-7)" as UC5
-        usecase "Assign Path (US-2)" as UC6
-        usecase "Generate Reports (US-5)" as UC7
-        usecase "Manage Paths" as UC8
-    }
+    %% System Boundary
+    subgraph "Intelligent LMS"
+        direction TB
+        UC1(["Browse Catalog (US-1)"])
+        UC2(["Play Video (US-3)"])
+        UC3(["Active Recall Interaction (US-8)"])
+        UC4(["Take Quiz (US-4)"])
+        UC5(["Smart Repetitions (US-7)"])
+        UC6(["Assign Path (US-2)"])
+        UC7(["Generate Reports (US-5)"])
+        UC8(["Manage Paths"])
+    end
 
+    %% Relationships
     emp --> UC1
     emp --> UC2
     emp --> UC4
     emp --> UC5
-    UC2 ..> UC3 : include
+    UC2 -.->|include| UC3
 
     mgr --> UC6
-    mgr --|> emp : inherits
+    mgr -.->|inherits| emp
 
     hr --> UC7
     hr --> UC8
