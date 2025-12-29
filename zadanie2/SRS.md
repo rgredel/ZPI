@@ -87,11 +87,15 @@ Aplikacja będzie posiadać interfejs webowy (SPA) zaprojektowany zgodnie z zasa
 System musi być responsywny (RWD) i obsługiwać urządzenia mobilne oraz desktopowe.
 
 **Główne widoki:**
-*   Dashboard użytkownika (Moje Ścieżki).
-*   Katalog Kursów (Wyszukiwarka).
-*   Odtwarzacz Wideo z panelem bocznym.
 
-*Makiety (Low-Fi) znajdują się w katalogu `images/`.*
+1.  **Dashboard użytkownika (Moje Ścieżki):**
+    ![Dashboard](images/dashboard_mockup.png)
+
+2.  **Katalog Kursów (Wyszukiwarka):**
+    ![Katalog](images/catalog_mockup.png)
+
+3.  **Odtwarzacz Wideo z panelem bocznym:**
+    ![Odtwarzacz](images/videoplayer_mockup.png)
 
 ### 3.2. Interfejsy Programowe (API)
 System będzie komunikował się z zewnętrznymi systemami:
