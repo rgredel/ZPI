@@ -1,0 +1,50 @@
+Summary,Issue Type,Description,Priority,Story Points,Issue Id,Parent Id
+"E01: Core Learning Experience",Epic,"Główne funkcjonalności związane z procesem nauki, odtwarzaniem materiałów i weryfikacją wiedzy.",High,,1,
+"E02: Management & Analytics",Epic,"Funkcjonalności dla Managerów i HR: raportowanie, przypisywanie ścieżek, zarządzanie użytkownikami.",Medium,,2,
+"US-3: Odtwarzanie wideo z Active Recall",Story,"*Jako pracownik, chcę odpowiadać na pytania w trakcie oglądania wideo, aby na bieżąco weryfikować zrozumienie materiału.*
+
+**Opis:**
+Implementacja interaktywnego odtwarzacza wideo, który zatrzymuje się w zdefiniowanych momentach i wyświetla pytania (Active Recall). Jest to kluczowa funkcja wyróżniająca system.
+
+**Kryteria Akceptacji:**
+1. **Scenario: Active Recall**
+   - **Given:** Oglądam wideo szkoleniowe.
+   - **When:** Wideo dociera do znacznika czasu z przypisanym pytaniem.
+   - **Then:** Odtwarzanie jest pauzowane automatycznie.
+   - **And:** Na ekranie pojawia się pytanie wielokrotnego wyboru.
+   - **And:** Nie mogę wznowić odtwarzania bez udzielenia odpowiedzi.
+
+2. **Scenario: Błąd ładowania**
+   - **Given:** Próbuję otworzyć materiał.
+   - **When:** Wystąpi błąd sieci.
+   - **Then:** Wyświetla się przycisk ""Spróbuj ponownie"", postęp nie jest tracony.
+
+**Refinement:**
+- Wybór biblioteki wideo (np. Video.js).
+- Format zapisu markerów czasowych w bazie (JSON).",High,8,,1
+"US-1: Przeglądanie Katalogu Kursów",Story,"*Jako pracownik, chcę przeglądać katalog dostępnych ścieżek rozwoju, abym mógł wybrać te zgodne z moimi zainteresowaniami.*
+
+**Opis:**
+Strona główna katalogu z możliwością filtrowania i wyszukiwania.
+
+**Kryteria Akceptacji:**
+1. **Scenario: Wyświetlenie katalogu**
+   - **Given:** Jestem zalogowanym pracownikiem.
+   - **When:** Wchodzę w zakładkę ""Katalog"".
+   - **Then:** Widzę listę kafelków z nazwami ścieżek, poziomem trudności i czasem trwania.
+
+2. **Scenario: Brak wyników**
+   - **Given:** Wpisuję frazę, której nie ma.
+   - **Then:** System wyświetla komunikat ""Nie znaleziono kursów"" i sugeruje wyczyszczenie filtrów.
+
+**Refinement:**
+- Stworzenie indeksów w bazie danych dla szybkiego wyszukiwania.
+- Implementacja paginacji (lazy loading).",High,5,,1
+"Zapisywanie postępów wideo",Story,"Jako użytkownik, chcę, aby system pamiętał, w którym momencie przerwałem oglądanie, abym mógł kontynuować naukę później.",Medium,3,,1
+"Wyszukiwanie kursów (Search Bar)",Story,"Jako użytkownik, chcę wyszukiwać kursy po nazwie i tagach, aby szybko znaleźć interesujące mnie treści.",Medium,3,,1
+"US-4: Rozwiązywanie Quizu końcowego",Story,"Jako użytkownik, chcę rozwiązać test po zakończeniu modułu, aby zaliczyć szkolenie (min. 80% poprawnych odpowiedzi).",High,5,,1
+"Wyświetlanie wyniku Quizu",Story,"Jako użytkownik, chcę natychmiast zobaczyć swój wynik i informację o zaliczeniu lub konieczności poprawki.",Medium,2,,1
+"US-2: Przypisanie ścieżki przez Managera",Story,"Jako Manager, chcę przypisać ścieżkę obligatoryjną podwładnemu, aby zadbać o jego rozwój wymagany w projekcie.",High,3,,2
+"US-5: Generowanie raportu postępów",Story,"Jako HR Manager, chcę wygenerować raport (CSV/PDF) dla wybranego zespołu, aby rozliczyć realizację celów szkoleniowych.",Medium,5,,2
+"Logowanie SSO (Azure AD)",Story,"Jako użytkownik, chcę logować się kontem firmowym, aby nie musieć pamiętać nowego hasła.",High,5,,2
+"US-7: Algorytm Asystenta Powtórek",Story,"Jako pracownik, chcę otrzymywać sugestie powtórek oparte o algorytm Spaced Repetition, aby trwale zapamiętać wiedzę.",Low,8,,1
