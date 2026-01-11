@@ -470,36 +470,38 @@ System będzie komunikował się z zewnętrznymi systemami:
 
 ```mermaid
 flowchart LR
-    %% Actors
-    emp("👤 Employee")
-    mgr("👤 Team Manager")
+    %% Aktorzy
+    emp("👤 Pracownik")
+    mgr("👤 Manager Zespołu")
     hr("👤 HR Manager")
+    prov("⚙️ Dostawca Benefitów (API)")
 
-    %% System Boundary
-    subgraph "Intelligent LMS"
+    %% Granica Systemu
+    subgraph "Intelligent LMS & Benefit Hub"
         direction TB
-        UC1(["Browse Catalog (US-1)"])
-        UC2(["Play Video (US-3)"])
-        UC3(["Active Recall Interaction (US-8)"])
-        UC4(["Take Quiz (US-4)"])
-        UC5(["Smart Repetitions (US-7)"])
-        UC6(["Assign Path (US-2)"])
-        UC7(["Generate Reports (US-5)"])
-        UC8(["Manage Paths"])
+        UC1(["Przeglądaj Katalog (US-1)"])
+        UC2(["Realizuj Naukę / Quizy (US-4)"])
+        UC3(["Sprawdź Portfel (US-9)"])
+        UC4(["Wymień Punkty na Benefit (US-10)"])
+        UC5(["Przypisz Ścieżkę (US-2)"])
+        UC6(["Zarządzaj Ofertą (US-11)"])
+        UC7(["Raportuj Utylizację (US-12)"])
     end
 
-    %% Relationships
+    %% Relacje
     emp --> UC1
     emp --> UC2
+    emp --> UC3
     emp --> UC4
-    emp --> UC5
+    
     UC2 -.->|include| UC3
+    UC4 <--> prov
 
-    mgr --> UC6
-    mgr -.->|inherits| emp
+    mgr --> UC5
+    mgr -.->|dziedziczy| emp
 
+    hr --> UC6
     hr --> UC7
-    hr --> UC8
 ```
 
 *   **Diagram Klas:**
@@ -508,71 +510,46 @@ flowchart LR
 classDiagram
     class User {
         +int id
-        +String firstName
-        +String lastName
         +String email
         +login()
     }
 
     class Employee {
-        +List~LearningPath~ myPaths
-        +browseCatalog()
-        +playVideo()
+        +Wallet wallet
+        +redeemBenefit()
     }
 
-    class Manager {
-        +List~Employee~ team
-        +assignPath()
+    class Wallet {
+        +int balance
+        +List~Transaction~ history
+        +addPoints(amount)
+        +deductPoints(amount)
     }
 
-    class HRManager {
-        +generateReport()
-        +managePaths()
+    class Transaction {
+        +int id
+        +DateTime timestamp
+        +int amount
+        +String type
     }
 
-    class LearningPath {
+    class Benefit {
         +int id
         +String name
-        +String difficultyLevel
-        +addCourse()
-    }
-
-    class Course {
-        +int id
-        +String title
-    }
-
-    class Module {
-        +int id
-        +String name
-        +status type
-    }
-
-    class Video {
-        +Time duration
-        +List~Marker~ activeRecallMarkers
+        +int pointCost
+        +String providerId
     }
 
     class Quiz {
-        +int passingScore
-        +start()
-    }
-
-    class Question {
-        +String content
-        +List~Option~ variants
+        +int rewardPoints
+        +complete()
     }
 
     User <|-- Employee
-    Employee <|-- Manager
-    User <|-- HRManager
-
-    Employee "1" -- "*" LearningPath : complete
-    LearningPath "1" *-- "*" Course
-    Course "1" *-- "*" Module
-    Module <|-- Video
-    Module <|-- Quiz
-    Quiz "1" *-- "*" Question
+    Employee "1" -- "1" Wallet
+    Wallet "1" *-- "*" Transaction
+    Transaction "*" -- "0..1" Benefit : dotyczy
+    Quiz "1" -- "1" Transaction : generuje
 ```
 
 ### Dodatek B: Persony Użytkowników
@@ -581,3 +558,5 @@ Szczegółowe karty person (Anna i Piotr) znajdują się w pliku [personas.md](p
 ### Dodatek C: Kwestie do Rozwiązania
 1.  Wybór dostawcy hostingu wideo (Vimeo Pro vs AWS S3).
 2.  Decyzja o frameworku frontendowym (Angular vs React - zespół preferuje Angular).
+3.  Wycena Punktowa i Atrakcyjność: Opracowanie algorytmu przeliczania trudności kursu na wartość punktową. Algorytm musi balansować między "sprawiedliwością" a "atrakcyjnością" nagród – zbyt wysokie progi punktowe mogą zniechęcić użytkowników i uniemożliwić osiągnięcie celu 95% utylizacji budżetu.
+4. Wybór Standardu API: Decyzja o wyborze wiodącego dostawcy platformy benefitowej (np. Medicover, MyBenefit) pod kątem stabilności ich API i łatwości generowania kodów w czasie rzeczywistym.
