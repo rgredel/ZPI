@@ -393,12 +393,12 @@ System będzie komunikował się z zewnętrznymi systemami:
 | US-2 | Przypisywanie Ścieżek | **Must Have** |
 | US-3 | Odtwarzacz Wideo | **Must Have** |
 | US-4 | Weryfikacja Wiedzy | **Must Have** |
-| US-9 | Zarządzanie Wirtualnym Portfelem | **Must Have** 
-| US-10 | Realizacja Benefitów (Kafeteria) | **Must Have** 
+| US-9 | Zarządzanie Wirtualnym Portfelem | **Must Have** |
+| US-10 | Realizacja Benefitów (Kafeteria) | **Must Have** |
 | US-5 | Raportowanie Postępów | **Should Have** |
 | US-7 | Asystent Powtórek | **Should Have** |
-| US-11 | Zarządzanie Ofertą Marketplace | **Should Have**
-| US-12 | Monitoring Utylizacji Budżetu | **Should Have**
+| US-11 | Zarządzanie Ofertą Marketplace | **Should Have** |
+| US-12 | Monitoring Utylizacji Budżetu | **Should Have** |
 
 ---
 
