@@ -24,6 +24,8 @@ System będzie umożliwiał zarządzanie ścieżkami rozwoju, przydzielanie kurs
 *   **Zaangażowanie:** Wskaźnik ukończenia kursów na poziomie > 85%.
 *   **Optymalizacja Budżetu:** zwiększenie utylizacji budżetu szkoleniowo-benefitowego do 95% (z obecnych 60%) w ciągu 12 miesięcy poprzez wdrożenie platformy kafeteryjnej.
 
+**Cele Biznesowe (OKR):**
+*   **Zarządzanie przez cele (OKR):** Zapewnienie 100% transparentności powiązań między celami indywidualnymi a strategią firmy w ciągu 3 miesięcy, poprzez system kaskadowania celów OKR, co pozwoli na kwartalną weryfikację realizacji strategii. (Wymusza hierarchiczną strukturę danych, wizualizację drzewa celów i analitykę postępów.)
 
 **Poza Zakresem:**
 System nie będzie obsługiwał płatności za kursy (wszystkie materiały są wewnętrzne lub opłacone ryczałtem) ani rekrutacji nowych pracowników.
