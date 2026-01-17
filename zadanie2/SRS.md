@@ -404,8 +404,64 @@ System będzie komunikował się z zewnętrznymi systemami:
 | US-7 | Asystent Powtórek | **Should Have** |
 | US-11 | Zarządzanie Ofertą Marketplace | **Should Have** |
 | US-12 | Monitoring Utylizacji Budżetu | **Should Have** |
+| US-13 | Zarządzanie OKR (Objectives & Key Results) | **Must Have** |
 
 ---
+ 
+## 4.12. Zarządzanie OKR (US-13)
+
+**Opis:** Moduł zarządzania celami OKR umożliwiający tworzenie, edycję, kaskadowanie oraz monitorowanie celów na poziomie strategicznym, zespołowym i indywidualnym. System zapewnia powiązanie celów z ścieżkami rozwoju, wizualizację drzewa celów oraz analitykę postępów, co wspiera kwartalną weryfikację realizacji strategii.
+
+**Historyjki Użytkownika:**
+*   Jako HR Manager / Administrator,
+*   chcę tworzyć i edytować cele strategiczne i kluczowe rezultaty (KR),
+*   aby zdefiniować priorytety organizacji i monitorować ich realizację.
+
+*   Jako Manager,
+*   chcę kaskadować cele do moich podwładnych i zespołów,
+*   aby ich zadania były bezpośrednio powiązane z celami firmy.
+
+*   Jako Pracownik,
+*   chcę widzieć moje cele osobiste i ich powiązanie ze ścieżkami rozwoju,
+*   aby lepiej ukierunkować naukę na realizację oczekiwań biznesowych.
+
+**Cel Biznesowy:** Zapewnienie 100% transparentności powiązań między celami indywidualnymi a strategią firmy poprzez system kaskadowania OKR oraz umożliwienie kwartalnej weryfikacji realizacji strategii.
+
+**Warunki Wstępne:** Użytkownik posiada odpowiednie uprawnienia (HR/Admin lub Manager). Istnieje co najmniej jedna zdefiniowana ścieżka rozwoju.
+
+**Warunki Końcowe:** Cele są zdefiniowane, przypisane i powiązane z użytkownikami oraz ścieżkami; dostępna jest wizualizacja drzewa celów i raport kwartalny z postępami.
+
+**Kryteria Akceptacji:**
+
+**Scenariusz Główny: Utworzenie celu i powiązanie z KR**
+*   **Given:** Jestem HR Managerem z uprawnieniami do tworzenia OKR.
+*   **When:** Tworzę nowe Objective z jednym lub więcej Key Results i przypisuję właściciela oraz ramy czasowe.
+*   **Then:** Cel pojawia się na liście OKR; każdy KR ma status i metryki śledzenia postępów.
+
+**Scenariusz Główny: Kaskadowanie celu do zespołu**
+*   **Given:** Istnieje Objective na poziomie strategicznym.
+*   **When:** Manager kaskaduje Objective do zespołu, tworząc cele zespołowe i indywidualne powiązane z nadrzędnym Objective.
+*   **Then:** System tworzy relacje rodzic-dziecko między celami, widoczne w wizualizacji drzewa oraz w profilach przypisanych użytkowników.
+
+**Scenariusz Główny: Powiązanie ścieżki rozwoju z celem**
+*   **Given:** Jest dostępna ścieżka rozwoju odpowiadająca kompetencjom wymaganym przez Objective.
+*   **When:** HR lub Manager powiązuje Learning Path z Objective lub KR.
+*   **Then:** Na dashboardzie użytkownika pojawia się informacja, które kursy wspierają realizację celu.
+
+**Scenariusz Główny: Wizualizacja drzewa celów i raport kwartalny**
+*   **Given:** Cele są zdefiniowane i powiązane z użytkownikami/ścieżkami.
+*   **When:** HR generuje raport kwartalny lub otwiera widok drzewa celów.
+*   **Then:** System pokazuje strukturę OKR, percentyl realizacji dla każdego celu oraz listę powiązanych ścieżek i użytkowników; raport zawiera wskaźnik zgodności powiązań (traceability) i metryki postępu.
+
+**Scenariusz Alternatywny: Konflikt kaskadowania**
+*   **Given:** Manager próbuje kaskadować Objective, który jest sprzeczny z istniejącymi priorytetami.
+*   **When:** Próbuje przypisać cel o sprzecznych terminach lub priorytecie.
+*   **Then:** System informuje o konflikcie i sugeruje konsultację z HR/Ownerem Objective.
+
+**Kryteria Sukcesu:**
+*   System umożliwia pełną śledzalność powiązań między celami strategicznymi, zespołowymi i indywidualnymi.
+*   Wizualizacja drzewa celów wyświetla relacje i statusy w czytelny sposób.
+*   Raport kwartalny dostarcza metryki wspierające weryfikację realizacji strategii.
 
 ## 5. Atrybuty Jakościowe
 
