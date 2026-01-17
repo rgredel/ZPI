@@ -463,6 +463,113 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   Wizualizacja drzewa celów wyświetla relacje i statusy w czytelny sposób.
 *   Raport kwartalny dostarcza metryki wspierające weryfikację realizacji strategii.
 
+## 4.13. Model danych OKR (hierarchia celów)
+
+Poniżej propozycja podstawowego modelu danych obsługującego cele OKR, ich kaskadowanie, powiązania z użytkownikami oraz powiązania z Learning Paths.
+
+1) `Objective`
+* id: UUID (PK)
+* title: string (255)
+* description: text
+* owner_id: UUID (FK -> User.id) — właściciel celu
+* start_date: date
+* end_date: date
+* status: enum {draft, active, on_track, at_risk, completed, cancelled}
+* progress_percent: decimal(5,2) — agregowany procent realizacji
+* parent_id: UUID (FK -> Objective.id) nullable — relacja rodzic-dziecko
+* created_at, updated_at: timestamps
+
+2) `KeyResult`
+* id: UUID (PK)
+* objective_id: UUID (FK -> Objective.id)
+* title: string (255)
+* metric_type: enum {percentage, numeric, boolean, milestone}
+* target_value: decimal/null
+* current_value: decimal/null
+* unit: string (np. "%", "items")
+* owner_id: UUID (FK -> User.id)
+* status: enum {not_started, in_progress, achieved, missed}
+* start_date, end_date: date
+* created_at, updated_at
+
+3) `OKRAssignment` (przypisania celu do użytkownika/zespołu)
+* id: UUID (PK)
+* objective_id: UUID (FK)
+* assignee_type: enum {user, team}
+* assignee_id: UUID (FK -> User.id albo Team.id)
+* role: enum {owner, contributor, reviewer}
+* created_at
+
+4) `ObjectiveLearningPath` (powiązanie Objective/KR z Learning Path)
+* id: UUID (PK)
+* objective_id: UUID (FK)
+* learning_path_id: UUID (FK -> LearningPath.id)
+* confidence: decimal (0..1) — jak silne jest powiązanie (optymalizacyjne)
+
+5) `OKRProgressEvent` (historyczne zdarzenia / metryki)
+* id: UUID (PK)
+* key_result_id: UUID (FK nullable)
+* objective_id: UUID (FK nullable)
+* recorded_by: UUID (User.id)
+* value: decimal
+* note: text
+* recorded_at: timestamp
+
+6) `OKRAudit` (zmiany, kaskadowania, konflikty)
+* id: UUID
+* entity_type: string (Objective/KeyResult/Assignment)
+* entity_id: UUID
+* action: string (create/update/delete/cascade)
+* performed_by: UUID
+* details: json
+* created_at: timestamp
+
+Indeksowanie i spójność:
+- Indeks na `Objective(parent_id)` dla szybkiego budowania drzewa.
+- Indeks na `KeyResult(objective_id, owner_id)` dla raportów właściciela.
+- Constraint: `Objective.end_date >= Objective.start_date`.
+- Sumaryczny `Objective.progress_percent` może być wyliczany okresowo (batch) lub na żądanie przez agregację powiązanych KR.
+
+Uwagi implementacyjne:
+- Projekt wymusza hierarchiczną strukturę (rekurencyjne Objective z parent_id). Można rozważyć dodatkowe kolumny do materializowanej ścieżki (ltree / path) dla szybszych zapytań drzewa.
+- Dla wysokiego obciążenia dashboardów rekomendowane są materializowane widoki/aggretacje (np. progress per objective) i warstwa cache (Redis).
+
+Diagram (klasy, uproszczony):
+
+```mermaid
+classDiagram
+    class Objective {
+        +UUID id
+        +String title
+        +String description
+        +UUID owner_id
+        +Date start_date
+        +Date end_date
+        +Decimal progress_percent
+        +UUID parent_id
+    }
+
+    class KeyResult {
+        +UUID id
+        +UUID objective_id
+        +String title
+        +Decimal target_value
+        +Decimal current_value
+        +String unit
+    }
+
+    class OKRAssignment {
+        +UUID id
+        +UUID objective_id
+        +String assignee_type
+        +UUID assignee_id
+    }
+
+    Objective "1" o-- "*" KeyResult : has
+    Objective "1" o-- "*" Objective : children
+    Objective "1" o-- "*" OKRAssignment : assigned
+```
+
 ## 5. Atrybuty Jakościowe
 
 ### 5.1. Jakość wykonania
