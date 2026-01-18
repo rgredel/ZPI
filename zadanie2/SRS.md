@@ -1,7 +1,7 @@
 # Specyfikacja Wymagań Oprogramowania (SRS)
 
 **Tytuł Projektu:** Intelligent LMS
-**Wersja:** 0.1.0
+**Wersja:** 0.1.1
 **Zespół:** Zespół Projektowy ZPI
 
 ---
@@ -78,15 +78,25 @@ System Intelligent LMS składa się z następujących głównych modułów funkc
 
 ### 2.3. Ograniczenia Projektowe i Implementacyjne
 **Technologiczne:**
-*   **Budżet Infrastruktury:** Miesięczny koszt chmury max 2000 PLN (MVP). Wymusza optymalizację przechowywania wideo.
-*   **Integracje API:** Konieczność obsługi zewnętrznych interfejsów dostawców usług benefitowych (np. bramki voucherowe).
+*   **Ograniczenie budżetowe (Infrastruktura):**
+    *   **Treść:** Miesięczny koszt utrzymania infrastruktury chmurowej nie może przekroczyć 2000 PLN w fazie MVP.
+    *   **Wpływ:** Wymusza optymalizację przechowywania wideo (np. kompresja) i dobór efektywnych kosztowo usług (np. AWS S3 + CloudFront z limitami). Architektura musi być "Cost-Aware".
+*   **Integracje API:**
+    *   **Treść:** Konieczność obsługi zewnętrznych interfejsów dostawców usług benefitowych (np. bramki voucherowe).
+    *   **Wpływ:** Wymaga implementacji adapterów i obsługi błędów zewnętrznych API.
 
 **Organizacyjne:**
-*   **Zespół:** Dostępność materiałów szkoleniowych zależy od działu HR i Tech Leadów.
-*   **Dostawcy:** Dostępność usług w Marketplace zależy od podpisanych umów z partnerami zewnętrznymi (np. Medicover, Benefit Systems).
+*   **Ograniczenie zasobów (Materiały):**
+    *   **Treść:** Dostępność materiałów szkoleniowych zależy od działu HR i Tech Leadów.
+    *   **Wpływ:** Ryzyko "pustej platformy" przy starcie. Wymagany kamień milowy "Content Freeze" na 2 tygodnie przed wdrożeniem.
+*   **Dostawcy Benefitów:**
+    *   **Treść:** Dostępność usług w Marketplace zależy od podpisanych umów z partnerami zewnętrznymi (np. Medicover, Benefit Systems).
+    *   **Wpływ:** Konieczność elastycznego zarządzania katalogiem usług w panelu administracyjnym.
 
-**Prawne i Środowiskowe:**
-*   **RODO (GDPR):** System przetwarza dane osobowe i wyniki pracowników. Wymagane ścisłe role dostępu (ACL), szyfrowanie i logi audytowe.
+**Prawne i Regulacyjne:**
+*   **RODO (GDPR):**
+    *   **Treść:** System przetwarza dane osobowe (wyniki, postępy) mogące wpływać na ocenę pracowniczą.
+    *   **Wpływ:** Konieczność implementacji ścisłych ról dostępu (ACL – Manager widzi tylko swój zespół). Logi audytowe dostępu do danych wrażliwych są obowiązkowe. Dane muszą być szyfrowane (At-Rest, In-Transit).
 
 ### 2.4. Założenia Projektowe
 *   **Dostępność Materiałów:** Dział HR dostarczy gotowe wideo i quizy przed startem systemu.
@@ -156,6 +166,18 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **And:** Wyświetla się komunikat "Nie znaleziono kursów dla podanej frazy".
 *   **And:** System sugeruje "Wyczyść filtry" lub "Zgłoś zapotrzebowanie na kurs".
 
+**Scenariusz Alternatywny: Filtrowanie po poziomie trudności**
+*   **Given:** Przeglądam listę wszystkich dostępnych ścieżek.
+*   **When:** W panelu filtrów zaznaczam checkbox "Poziom: Ekspert".
+*   **Then:** Lista zostaje odświeżona bez przeładowania strony.
+*   **And:** Widoczne są tylko ścieżki oznaczone tagiem "Ekspert".
+
+**Scenariusz Dodatkowy (Perspektywa Managera): Wyszukiwanie szkolenia dla zespołu**
+*   **Given:** Jestem Managerem i chcę znaleźć szkolenie dla Junior developera.
+*   **When:** Wpisuję w wyszukiwarkę "Onboarding Java".
+*   **Then:** Wyświetla się lista kursów.
+*   **And:** Przy każdym kursie widzę przycisk "Przypisz do zespołu" (skrót do US-2).
+
 ### 4.2. Przypisywanie Ścieżek (US-2)
 
 **Opis:** Manager może przypisać ścieżkę obligatoryjną swojemu podwładnemu.
@@ -182,6 +204,18 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **Then:** Przycisk/opcja wyboru tej ścieżki jest nieaktywna (wyszarzona).
 *   **Or:** System wyświetla komunikat błędu "Użytkownik już realizuje tę ścieżkę".
 *   **And:** Nie wysyła się duplikat powiadomienia.
+
+**Scenariusz Wyjątkowy: Usunięcie pracownika z zespołu**
+*   **Given:** Mam na liście pracownika, który zmienił dział.
+*   **When:** Próbuję przypisać mu ścieżkę, ale jego konto zostało w międzyczasie dezaktywowane w systemie HR.
+*   **Then:** System wyświetla komunikat "Nie można przypisać ścieżki. Użytkownik nieaktywny lub brak uprawnień".
+*   **And:** Akcja jest blokowana.
+
+**Scenariusz Dodatkowy (Perspektywa HR): Masowe przypisanie (Bulk Assign)**
+*   **Given:** Jestem administratorem HR.
+*   **When:** Wybieram grupę "Wszyscy pracownicy" i ścieżkę "RODO 2025".
+*   **Then:** System tworzy kolejkę zadań przypisania dla 500 użytkowników.
+*   **And:** Wyświetla pasek postępu operacji ("Przypisano 120/500").
 
 ### 4.3. Odtwarzanie i Interakcja z Wideo (US-3, US-8)
 
@@ -211,6 +245,17 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **And:** Pojawia się przycisk "Spróbuj ponownie".
 *   **And:** Postęp oglądania nie jest tracony (ostatnia znana pozycja jest zachowana lokalnie).
 
+**Scenariusz Alternatywny: Zmiana jakości wideo**
+*   **Given:** Oglądam wideo przy słabym połączeniu internetowym.
+*   **When:** Przepustowość łącza spada.
+*   **Then:** Odtwarzacz automatycznie redukuje jakość (np. z 1080p na 720p lub 480p) dzięki adaptacyjnemu streamingowi (HLS).
+*   **And:** Odtwarzanie jest kontynuowane bez przerw na buforowanie.
+
+**Scenariusz Dodatkowy (Perspektywa Twórcy Treści): Weryfikacja znaczników**
+*   **Given:** Jestem twórcą treści i właśnie dodałem pytania do wideo.
+*   **When:** Uruchamiam "Tryb Podglądu" (Preview Mode).
+*   **Then:** Mogę przeskoczyć bezpośrednio do każdego znacznika, aby sprawdzić czy pytanie wyświetla się poprawnie, bez konieczności oglądania całego filmu.
+
 ### 4.4. Weryfikacja Wiedzy - Quiz (US-4)
 
 **Opis:** Test sprawdzający wiedzę po zakończeniu modułu szkoleniowego.
@@ -238,6 +283,13 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **And:** Wskazuje sekcje materiału/wideo, które warto powtórzyć przed kolejną próbą.
 *   **And:** Moduł pozostaje w statusie "W toku".
 
+**Scenariusz Wyjątkowy: Zerwanie połączenia w trakcie testu**
+*   **Given:** Jestem w trakcie rozwiązywania quizu (pytanie 5/10).
+*   **When:** Tracę połączenie z internetem.
+*   **Then:** System wyświetla ostrzeżenie "Brak połączenia. Nie odświeżaj strony.".
+*   **And:** Moje dotychczasowe odpowiedzi są przechowywane w pamięci lokalnej przeglądarki (Local Storage).
+*   **And:** Po przywróceniu połączenia system automatycznie synchronizuje odpowiedzi z serwerem.
+
 ### 4.5. Raportowanie Postępów (US-5)
 
 **Opis:** Generowanie raportów o postępach pracowników i zespołów dla działu HR.
@@ -264,7 +316,45 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **Then:** System wyświetla komunikat "Brak danych dla wybranych kryteriów".
 *   **And:** Nie generuje pustego pliku PDF/CSV.
 
-### 4.6. Inteligentny Asystent Powtórek (US-7)
+**Scenariusz Wyjątkowy: Wybór nieobsługiwanego formatu w przeglądarce**
+*   **Given:** Przeglądam podgląd raportu.
+*   **When:** Wybieram opcję "Eksportuj do XML" (która jest wyłączona w MVP).
+*   **Then:** System informuje "Eksport XML dostępny w wersji Pro" i sugeruje CSV.
+*   **Or:** Przycisk jest ukryty.
+
+**Scenariusz Dodatkowy (Perspektywa Managera Zespołu): Szybki podgląd ryzyka ("Compliance Check")**
+*   **Given:** Jestem Managerem Zespołu.
+*   **When:** Wchodzę w zakładkę "Mój Zespół".
+*   **Then:** Widzę listę osób, którym kończy się termin obowiązkowego szkolenia (np. < 3 dni).
+*   **And:** Mogę jednym kliknięciem wysłać im przypomnienie ("Nudge").
+
+### 4.6. Zarządzanie Ścieżkami Rozwoju (US-6)
+
+**Opis:** Panel administracyjny do tworzenia, edycji i usuwania ścieżek oraz przypisywania do nich materiałów.
+**Historyjka Użytkownika:**
+*   Jako HR Manager / Administrator,
+*   chcę tworzyć nowe ścieżki rozwoju i modyfikować ich zawartość,
+*   aby na bieżąco dostosowywać bazę wiedzy do zmieniających się technologii w firmie.
+
+**Cel Biznesowy:** Utrzymanie aktualności bazy wiedzy.
+**Warunki Wstępne:** Użytkownik posiada uprawnienia Administratora.
+**Warunki Końcowe:** Zmiany w strukturze ścieżek są widoczne dla pracowników.
+
+**Kryteria Akceptacji:**
+
+**Scenariusz Główny: Dodanie nowej ścieżki**
+*   **Given:** Jestem w panelu zarządzania ścieżkami.
+*   **When:** Klikam "Utwórz nową ścieżkę" i definiuję jej nazwę oraz opis.
+*   **And:** Dodaję do niej listę kursów/modułów z biblioteki.
+*   **Then:** Nowa ścieżka zostaje zapisana jako "Szkic" (Draft) lub "Opublikowana".
+
+**Scenariusz Alternatywny: Edycja kolejności modułów**
+*   **Given:** Edytuję istniejącą ścieżkę.
+*   **When:** Przeciągam moduł "Bezpieczeństwo" na początek listy (Drag & Drop).
+*   **Then:** System zapisuje nową kolejność.
+*   **And:** Postęp użytkowników, którzy już ukończyli ten moduł, zostaje zachowany.
+
+### 4.7. Inteligentny Asystent Powtórek (US-7)
 
 **Opis:** Algorytm sugerujący powtórki materiału w optymalnych odstępach czasu (SR).
 **Historyjka Użytkownika:**
@@ -291,17 +381,20 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **Then:** Wyświetla się komunikat "Wszystko na bieżąco! Wróć jutro.".
 *   **And:** System proponuje opcjonalną naukę nowych materiałów.
 
-### 4.7. Zarządzanie Wirtualnym Portfelem (US-9)
+### 4.7. Inteligentny Asystent Powtórek (US-7)
+*(Treść zgodna z wcześniejszą wersją)*
 
-**Opis:** Umożliwia pracownikowi bieżący podgląd stanu posiadanych punktów oraz historii ich zdobywania za aktywność edukacyjną.  
+### 4.8. Zarządzanie Wirtualnym Portfelem (US-9)
+
+**Opis:** Umożliwia pracownikowi bieżący podgląd stanu posiadanych punktów oraz historii ich zdobywania za aktywność edukacyjną.
 **Historyjka Użytkownika:**
 *   Jako pracownik,
 *   chcę mieć wgląd w saldo mojego portfela i historię transakcji,
 *   aby wiedzieć, ile punktów zgromadziłem i na jakie benefity mogę je wymienić.
 
-**Cel Biznesowy:** Budowanie motywacji do nauki poprzez transparentność systemu nagród i bezpośrednie powiązanie postępów z korzyściami.  
-**Warunki Wstępne:** Użytkownik jest zalogowany do systemu.  
-**Warunki Końcowe:** Użytkownik wyświetla aktualne saldo punktowe oraz listę operacji historycznych.
+**Cel Biznesowy:** Budowanie motywacji do nauki poprzez transparentność systemu nagród.
+**Warunki Wstępne:** Użytkownik jest zalogowany do systemu.
+**Warunki Końcowe:** Użytkownik wyświetla aktualne saldo punktowe.
 
 **Kryteria Akceptacji:**
 
@@ -310,101 +403,94 @@ System będzie komunikował się z zewnętrznymi systemami:
 *   **And:** Właśnie ukończyłem quiz, za który otrzymałem 50 pkt.
 *   **When:** Przechodzę do widoku "Mój Portfel".
 *   **Then:** System wyświetla saldo równe 150 pkt.
-*   **And:** Na liście transakcji widzę nową pozycję: "+50 pkt - Quiz: Podstawy Cloud" z dzisiejszą datą.
+*   **And:** Na liście transakcji widzę nową pozycję: "+50 pkt - Quiz: Podstawy Cloud".
 
+### 4.9. Realizacja Benefitów w Systemie Kafeteryjnym (US-10)
 
-### 4.8. Realizacja Benefitów w Systemie Kafeteryjnym (US-10)
-
-**Opis:** Moduł wymiany zgromadzonych punktów na usługi zewnętrzne (wellbeing, rozwój) poprzez automatyczną integrację z dostawcami.  
+**Opis:** Moduł wymiany zgromadzonych punktów na usługi zewnętrzne (wellbeing, rozwój).
 **Historyjka Użytkownika:**
 *   Jako pracownik,
 *   chcę samodzielnie wymieniać punkty na wybrane usługi prozdrowotne lub rozwojowe,
-*   aby sfinansować mój wellbeing bez konieczności składania papierowych wniosków.
-
-**Cel Biznesowy:** Zwiększenie utylizacji budżetu do poziomu 95% poprzez eliminację barier biurokratycznych w dostępie do świadczeń.  
-**Warunki Wstępne:** Użytkownik posiada na koncie liczbę punktów równą lub wyższą niż cena wybranego benefitu.  
-**Warunki Końcowe:** Saldo punktowe zostaje pomniejszone, a system generuje unikalny kod dostępu lub przesyła potwierdzenie do dostawcy.
+*   aby sfinansować mój wellbeing bez biurokracji.
 
 **Kryteria Akceptacji:**
+*   **Given:** Posiadam 500 pkt.
+*   **When:** Wybieram benefit za 400 pkt.
+*   **Then:** Saldo spada do 100 pkt, a ja otrzymuję kod vouchera.
 
-**Scenariusz Główny: Pomyślna wymiana punktów**
-*   **Given:** Posiadam 500 pkt w portfelu.
-*   **And:** Wybrałem benefit "Voucher do fizjoterapeuty" o wartości 400 pkt.
-*   **When:** Klikam przycisk "Wymień punkty" i potwierdzam operację w oknie modalnym.
-*   **Then:** Moje saldo zostaje natychmiast pomniejszone o 400 pkt (nowy stan: 100 pkt).
-*   **And:** System wyświetla unikalny kod vouchera gotowy do użycia.
-*   **And:** Otrzymuję e-mail z potwierdzeniem transakcji i instrukcją realizacji.
+### 4.10. Zarządzanie Ofertą Marketplace (US-11)
 
-**Scenariusz Alternatywny: Niewystarczające saldo**
-*   **Given:** Posiadam 100 pkt w portfelu.
-*   **And:** Wybrałem benefit "Karta sportowa" o wartości 300 pkt.
-*   **When:** Wyświetlam szczegóły tego benefitu.
-*   **Then:** Przycisk "Wymień punkty" jest nieaktywny (wyszarzony).
-*   **And:** Pod ceną widnieje komunikat: "Brakuje Ci 200 pkt, aby odebrać ten benefit".
-
-
-### 4.9. Zarządzanie Ofertą Marketplace (US-11)
-
-**Opis:** Panel administracyjny dla działu HR służący do konfigurowania katalogu nagród i zarządzania relacjami z dostawcami.  
+**Opis:** Panel administracyjny dla działu HR służący do konfigurowania katalogu nagród.
 **Historyjka Użytkownika:**
-*   Jako HR Manager (Anna),
-*   chcę dodawać nowe benefity do katalogu i określać ich wartość punktową,
-*   aby oferta była atrakcyjna dla pracowników i optymalizowała wykorzystanie budżetu.
+*   Jako HR Manager,
+*   chcę dodawać nowe benefity do katalogu,
+*   aby oferta była atrakcyjna dla pracowników.
 
-**Cel Biznesowy:** Efektywne zarządzanie budżetem szkoleniowo-benefitowym i dopasowanie oferty do realnych potrzeb pracowników.  
-**Warunki Wstępne:** Użytkownik posiada uprawnienia Administratora lub HR Managera.  
-**Warunki Końcowe:** Nowy benefit jest opublikowany i dostępny dla pracowników w katalogu Marketplace.
+### 4.11. Monitoring Utylizacji Budżetu (US-12)
 
-**Kryteria Akceptacji:**
-
-**Scenariusz Główny: Dodanie nowego benefitu*
-*   **Given:** Jestem zalogowana jako HR Manager i znajduję się w panelu zarządzania Marketplace.
-*   **When:** Wypełniam formularz dodawania benefitu:  
-    Nazwa ("Sesja z psychologiem"),  
-    Cena (250 pkt),  
-    Kategoria ("Wellbeing"),  
-    Dostawca ("MindFull API").
-*   **And:** Klikam "Opublikuj".
-*   **Then:** Nowa oferta pojawia się na liście benefitów dostępnych dla wszystkich pracowników.
-
-
-### 4.10. Monitoring Utylizacji Budżetu (US-12)
-
-**Opis:** Moduł analityczny generujący raporty dotyczące wykorzystania środków finansowych w ramach platformy kafeteryjnej.  
+**Opis:** Moduł analityczny generujący raporty dotyczące wykorzystania środków finansowych.
 **Historyjka Użytkownika:**
-*   Jako HR Manager (Anna),
-*   chcę generować raporty utylizacji budżetu w czasie rzeczywistym,
-*   aby monitorować realizację celu 95% wykorzystania środków i reagować na odchylenia.
+*   Jako HR Manager,
+*   chcę generować raporty utylizacji,
+*   aby monitorować realizację celu 95% wykorzystania budżetu.
 
-**Cel Biznesowy:** Kontrola kluczowych wskaźników efektywności (KPI) projektu oraz optymalizacja wydatków firmy.  
-**Warunki Wstępne:** W systemie zarejestrowano aktywność użytkowników w module portfela.  
-**Warunki Końcowe:** System generuje interaktywny raport finansowy lub plik eksportu z danymi o utylizacji budżetu.
+### 4.12. Zarządzanie OKR (US-13)
+(Szczegóły w sekcji 4.12 poniżej)
+
+### 4.13. Konfiguracja Pytań i Treści (US-14)
+
+**Opis:** Pomocnicza funkcja pozwalająca definiować pytania do quizów oraz znaczniki Active Recall w wideo.
+**Historyjka Użytkownika:**
+*   Jako Twórca Treści (Content Creator),
+*   chcę dodawać pytania testowe do konkretnych momentów w wideo,
+*   aby wymusić interakcję użytkownika (Active Recall).
+
+**Cel Biznesowy:** Zapewnienie jakości merytorycznej kursów.
+**Kryteria Akceptacji:**
+*   **Given:** Jestem w edytorze materiału wideo.
+*   **When:** Pauzuję wideo w 2:30 i wybieram "Dodaj Pytanie".
+*   **Then:** Znacznik pojawia się na osi czasu wideo.
+
+### 4.14. Panel Pracownika - Dashboard (US-15)
+
+**Opis:** Ekran startowy agregujący "Moje Ścieżki".
+**Historyjka Użytkownika:**
+*   Jako pracownik,
+*   chcę widzieć listę moich aktualnych kursów od razu po zalogowaniu,
+*   abym mógł natychmiast wrócić do nauki.
 
 **Kryteria Akceptacji:**
+*   **Given:** Zalogowałem się i mam rozpoczęty kurs.
+*   **When:** Klikam przycisk "Wznów" na Dashboardzie.
+*   **Then:** System otwiera Player dokładnie na ostatniej pozycji.
 
-**Scenariusz Główny: Generowanie raportu**
-*   **Given:** Jestem zalogowana jako HR Manager.
-*   **When:** Przechodzę do sekcji "Raporty" i wybieram "Analiza wykorzystania budżetu".
-*   **Then:** System wyświetla czytelny wykres porównujący sumę wydanych punktów z całkowitym budżetem rocznym.
-*   **And:** Widzę wyliczony procent utylizacji (np. "Obecna utylizacja: 68%").
-*   **And:** System sugeruje listę najmniej popularnych benefitów do ewentualnej wymiany.
+### 4.15. System Powiadomień (US-16)
 
+**Opis:** Mechanizm wysyłania powiadomień (Email/In-App).
+**Historyjka Użytkownika:**
+*   Jako pracownik,
+*   chcę otrzymywać przypomnienia o nowych przypisaniach,
+*   abym nie przeoczył terminów.
 
-### 4.11. Priorytetyzacja Wymagań
+### 4.16. Priorytetyzacja Wymagań
 
 | ID | Funkcjonalność | Priorytet (MoSCoW) |
 | :--- | :--- | :--- |
 | US-1 | Przeglądanie Katalogu | **Must Have** |
 | US-2 | Przypisywanie Ścieżek | **Must Have** |
 | US-3 | Odtwarzacz Wideo | **Must Have** |
-| US-4 | Weryfikacja Wiedzy | **Must Have** |
-| US-9 | Zarządzanie Wirtualnym Portfelem | **Must Have** |
-| US-10 | Realizacja Benefitów (Kafeteria) | **Must Have** |
+| US-4 | Weryfikacja Wiedzy (Quiz) | **Must Have** |
+| US-6 | Zarządzanie Ścieżkami | **Must Have** |
+| US-9 | Wirtualny Portfel | **Must Have** |
+| US-10 | Kafeteria Benefitów | **Must Have** |
+| US-13 | Zarządzanie OKR | **Must Have** |
+| US-14 | Konfiguracja Treści (Creator) | **Must Have** |
+| US-15 | Dashboard | **Must Have** |
 | US-5 | Raportowanie Postępów | **Should Have** |
 | US-7 | Asystent Powtórek | **Should Have** |
-| US-11 | Zarządzanie Ofertą Marketplace | **Should Have** |
-| US-12 | Monitoring Utylizacji Budżetu | **Should Have** |
-| US-13 | Zarządzanie OKR (Objectives & Key Results) | **Must Have** |
+| US-11 | Zarządzanie Marketplace | **Should Have** |
+| US-12 | Monitoring Budżetu | **Should Have** |
+| US-16 | Powiadomienia | **Should Have** |
 
 ---
  
@@ -616,6 +702,8 @@ classDiagram
 2.  **Wysokie:** Dostępność systemu. Wydajność API.
 3.  **Średnie:** Modyfikowalność i Przenośność.
 
+
+
 ---
 
 ## 6. Odkrywanie i Analiza Wymagań
@@ -623,21 +711,18 @@ classDiagram
 ### 6.1. Analiza Porównawcza (Benchmarking)
 
 **Konkurencja:**
-*   **Udemy for Business:** Popularna platforma z kursami wideo.
-*   **Pluralsight:** Platforma skoncentrowana na umiejętnościach technicznych.
-*   **MyBenefit, Medicover Benefits:** Platformy skupione wyłącznie na świadczeniach pozapłacowych, bez powiązania z rozwojem kompetencji.
+*   **Udemy for Business / Pluralsight:**
+    *   **Zalety:** Ogromna biblioteka gotowych kursów, wysoka jakość wideo.
+    *   **Wady:** Brak kontekstu firmowego (Knowledge Silos), model subskrypcyjny (drogi przy dużej skali), brak Active Recall.
+*   **MyBenefit, Medicover Benefits:**
+    *   **Zalety:** Szeroka oferta benefitowa.
+    *   **Wady:** Brak powiązania z rozwojem kompetencji (model "sklep z nagrodami"), brak modułu LMS.
 
-
-**Kryteria Oceny:**
-1.  **Materiały Wewnętrzne:** Czy można hostować własne wideo?
-2.  **Spaced Repetition:** Czy system wspiera inteligentne powtórki?
-3.  **Koszt:** Model rozliczeń.
-4.  **System Benefitowy i Wellbeing:** Czy system pozwala na elastyczną wymianę punktów na usługi prozdrowotne i rozwojowe?
-
-**Synteza Wyników:**
-*   **Udemy/Pluralsight:** Oferują świetne materiały ogólne, ale brakuje im wsparcia dla specyficznych procesów firmowych i hostingu tajnych materiałów wewnętrznych. Żadna z nich nie posiada wbudowanego modułu Active Recall/Spaced Repetition w standardzie.
-*   **Intelligent LMS:** Wypełnia niszę poprzez połączenie własnych treści (Internal Knowledge) z nowoczesnymi metodami nauki (SR/Active Recall), co jest kluczowe dla ROI.
-*   **MyBenefit/Kafeterie:** Skupiają się wyłącznie na katalogu nagród. Brak integracji z procesem szkoleniowym sprawia, że nie wspierają aktywnie rozwoju kompetencji pracowników.
+**Dlaczego Intelligent LMS? (USP):**
+1.  **Wiedza Wewnętrzna (Internal Knowledge):** W przeciwieństwie do Udemy, nasz system pozwala na bezpieczne hostowanie tajnych materiałów firmowych (onboarding, architektura systemów).
+2.  **Active Recall:** Wbudowanie pytań w wideo zwiększa retencję wiedzy (nawet o 50%), czego brakuje w pasywnym modelu Pluralsight.
+3.  **Powiązanie Rozwoju z Benefitami:** Unikalny model, w którym punkty za naukę są walutą w systemie kafeteryjnym, buduje realną motywację do upskilling'u.
+4.  **Optymalizacja Kosztów:** Stały koszt infrastruktury (AWS S3) vs rosnący koszt licencji per-user (SaaS).
 
 ---
 
@@ -682,53 +767,6 @@ flowchart LR
     hr --> UC7
 ```
 
-*   **Diagram Klas:**
-
-```mermaid
-classDiagram
-    class User {
-        +int id
-        +String email
-        +login()
-    }
-
-    class Employee {
-        +Wallet wallet
-        +redeemBenefit()
-    }
-
-    class Wallet {
-        +int balance
-        +List~Transaction~ history
-        +addPoints(amount)
-        +deductPoints(amount)
-    }
-
-    class Transaction {
-        +int id
-        +DateTime timestamp
-        +int amount
-        +String type
-    }
-
-    class Benefit {
-        +int id
-        +String name
-        +int pointCost
-        +String providerId
-    }
-
-    class Quiz {
-        +int rewardPoints
-        +complete()
-    }
-
-    User <|-- Employee
-    Employee "1" -- "1" Wallet
-    Wallet "1" *-- "*" Transaction
-    Transaction "*" -- "0..1" Benefit : dotyczy
-    Quiz "1" -- "1" Transaction : generuje
-```
 
 ### Dodatek B: Persony Użytkowników
 Szczegółowe karty person (Anna i Piotr) znajdują się w pliku [personas.md](personas.md).
