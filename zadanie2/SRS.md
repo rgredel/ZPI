@@ -742,22 +742,32 @@ System będzie komunikował się z zewnętrznymi systemami:
 
 ### 6.1. Analiza Porównawcza (Benchmarking)
 
-**Konkurencja:**
-*   **Udemy for Business:** Popularna platforma z kursami wideo.
-*   **Pluralsight:** Platforma skoncentrowana na umiejętnościach technicznych.
-*   **MyBenefit, Medicover Benefits:** Platformy skupione wyłącznie na świadczeniach pozapłacowych, bez powiązania z rozwojem kompetencji.
+Analiza konkurencyjności rozwiązania Intelligent LMS została przeprowadzona w odniesieniu do trzech kategorii systemów dostępnych na rynku: platform edukacyjnych (LMS/LXP), systemów benefitowych oraz narzędzi do zarządzania wiedzą.
 
+**Główni Konkurenci:**
+*   **Platformy komercyjne (Udemy for Business, Pluralsight, LinkedIn Learning):** Globalni gracze oferujący dostęp do tysięcy gotowych kursów, skupieni na modelu subskrypcyjnym.
+*   **Systemy Enterprise LMS (Moodle, Totara, SAP SuccessFactors):** Rozwiązania korporacyjne pozwalające na pełną kontrolę nad procesem, ale często obarczone długiem technologicznym i skomplikowanym UX.
+*   **Platformy Kafeteryjne (MyBenefit, Medicover Benefits):** Systemy służące dystrybucji świadczeń pozapłacowych, zazwyczaj oderwane od procesów rozwojowych w firmie.
 
-**Kryteria Oceny:**
-1.  **Materiały Wewnętrzne:** Czy można hostować własne wideo?
-2.  **Spaced Repetition:** Czy system wspiera inteligentne powtórki?
-3.  **Koszt:** Model rozliczeń.
-4.  **System Benefitowy i Wellbeing:** Czy system pozwala na elastyczną wymianę punktów na usługi prozdrowotne i rozwojowe?
+**Szczegółowa Analiza Parametrów:**
 
-**Synteza Wyników:**
-*   **Udemy/Pluralsight:** Oferują świetne materiały ogólne, ale brakuje im wsparcia dla specyficznych procesów firmowych i hostingu tajnych materiałów wewnętrznych. Żadna z nich nie posiada wbudowanego modułu Active Recall/Spaced Repetition w standardzie.
-*   **Intelligent LMS:** Wypełnia niszę poprzez połączenie własnych treści (Internal Knowledge) z nowoczesnymi metodami nauki (SR/Active Recall), co jest kluczowe dla ROI.
-*   **MyBenefit/Kafeterie:** Skupiają się wyłącznie na katalogu nagród. Brak integracji z procesem szkoleniowym sprawia, że nie wspierają aktywnie rozwoju kompetencji pracowników.
+1.  **Zarządzanie Własną Wiedzą (Internal Knowledge):**
+    Platformy takie jak Udemy czy Pluralsight działają w modelu "zamkniętego ogrodu" – świetnie sprawdzają się w nauce ogólnych technologii, ale nie pozwalają na efektywne wgrywanie i zabezpieczanie tajnego know-how firmy (np. procedur autorskich). Systemy klasy Enterprise (Moodle) umożliwiają to, lecz często oferują przestarzały interfejs. **Intelligent LMS** wypełnia tę lukę, łącząc nowoczesny UX znany z serwisów streamingowych z możliwością bezpiecznego hostowania i dystrybucji wewnętrznych materiałów szkoleniowych.
+
+2.  **Metodyka Nauczania (Active Recall & Spaced Repetition):**
+    Rynkowym standardem jest wciąż pasywna konsumpcja treści wideo. Większość konkurentów mierzy jedynie "czas spędzony na nauce". Nasz projekt jako jedyny w tym zestawieniu natywnie implementuje algorytmy **Spaced Repetition System (SRS)** oraz interaktywne wideo (Active Recall). W przeciwieństwie do konkurencji, która traktuje naukę liniowo, nasz system wymusza aktywność poznawczą użytkownika, co naukowo udowodniono jako metodę zwiększającą trwale retencję wiedzy.
+
+3.  **Ekonomia Tokenowa i Grywalizacja 2.0:**
+    Typowe LMS-y oferują "odznaki" i "rankingi", które rzadko przekładają się na długotrwałą motywację zewnętrzną dorosłych pracowników. **Intelligent LMS** wprowadza realną walutę (Punkty Rozwoju), pełniącą funkcję mikropłatności za wysiłek intelektualny. Wymienialność punktów na fizyczne i cyfrowe benefity (integracja z Marketplace) tworzy bezpośrednie psychologiczne przełożenie "Nauka = Zysk", którego brakuje w rozwiązaniach czysto edukacyjnych.
+
+4.  **Analityka Efektywności (ROI vs Completion Rate):**
+    Standardowe raporty konkurencji kończą się na wskaźniku "Procent Ukończenia Kursu". Jest to metryka próżności, która nie mówi nic o zwrocie z inwestycji. Nasz system, dzięki modułowi **Long-term Retention Check**, automatycznie weryfikuje poziom wiedzy 30 dni po szkoleniu. Dostarcza to HR twardych danych o rzeczywistej skuteczności szkoleń i "krzywej zapominania" w organizacji, co jest unikalną funkcjonalnością na rynku.
+
+5.  **Synergia Wellbeing i Rozwoju:**
+    Istnieje wyraźny podział rynkowy: systemy benefitowe nie uczą, a systemy edukacyjne nie dbają o zdrowie. Nasze rozwiązanie integruje te dwa światy. Pracownik zdobywając wiedzę (Rozwój), zdobywa środki na wizyty u fizjoterapeuty czy wyjścia kulturalne (Wellbeing). Tworzy to samonapędzające się koło, gdzie rozwój zawodowy bezpośrednio wspiera dobrostan osobisty pracownika.
+
+**Unikalna Propozycja Wartości (Unique Value Proposition):**
+To, co fundamentalnie wyróżnia **Intelligent LMS**, to przesunięcie akcentu z "dostarczania treści" na **"walidację i monetyzację wiedzy"**. Nie konkurujemy z Udemy liczbą kursów, ale oferujemy ekosystem, w którym inwestycja czasu pracownika w rozwój jest natychmiastowo nagradzana, a organizacja otrzymuje gwarancję (potwierdzoną metrykami), że wiedza została nie tylko przekazana, ale i trwale przyswojona. Rozwiązujemy tym samym kluczowy problem działów HR: jak skutecznie zmotywować pracowników do ciągłego podnoszenia kwalifikacji w świecie przeładowanym informacjami.
 
 ---
 
