@@ -1,9 +1,12 @@
 # Sprawozdanie - Zadanie 3: Planowanie Projektu i Symulacja Sprintu
+  Maciej Zeliaś
+  Patryk Baranek
+  Radosław Grędel
+  Tomasz Kajda
 
 **Link do projektu Jira:** [Jira3](https://zpi-cy-1.atlassian.net/jira/software/projects/Z3/boards/35?atlOrigin=eyJpIjoiMGZiZDM3YzFjMjYyNGUzMzhjZDNhYzQ3MjBhMjE3N2MiLCJwIjoiaiJ9)
 
 ---
-
 ## Część A: Backlog Produktów i Roadmapa
 
 ### 1. Product Backlog (MVP)
