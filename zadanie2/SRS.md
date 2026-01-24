@@ -2,7 +2,10 @@
 
 **Tytuł Projektu:** Intelligent LMS
 **Wersja:** 0.1.0
-**Zespół:** Zespół Projektowy ZPI
+**Zespół:** Maciej Zeliaś
+  Patryk Baranek
+  Radosław Grędel
+  Tomasz Kajda
 
 ---
 
